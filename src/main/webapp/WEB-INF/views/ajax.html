@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function addProduct() {
+            //lay du lieu
+            let productName = $('#productName').val();
+            let productPrice = $('#price').val();
+            let productDescription = $('#description').val();
+            let productDate = $('#date').val();
+            let productQuantity = $('#quantity').val();
+            let productCategory = $('#category').val();
+            let newProduct = {
+                name: productName,
+                price: productPrice,
+                description: productDescription,
+                date: productDate,
+                quantity: productQuantity,
+                category: {id:productCategory},
+            };
+            //goi ajax
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                data: JSON.stringify(newProduct),
+                //ten API
+                url: "/api/products/",
+                //xu li khi thanh cong
+                success: successHandler
+            });
+            // chan su kien mac dinh cua the
+            event.preventDefault();
+        }
+
+        function successHandler() {
+            $.ajax({
+                type: "GET",
+                //tên API
+                url: "/api/products",
+                //xử lý khi thành công
+                success: function (data) {
+                    console.log(data)
+                    // hien thi danh sach o day
+                    let content = '    <tr>\n' +
+                        '        <td>Name</td>\n' +
+                        '        <td>Price</td>\n' +
+                        '        <td>Description</td>\n' +
+                        '        <td>Date</td>\n' +
+                        '        <td>Quantity</td>\n' +
+                        '        <td>Category</td>\n' +
+                        '        <td>Edit</td>\n' +
+                        '        <td>Delete</td>\n' +
+                        '    </tr>';
+                    for (let i = 0; i < data.length; i++) {
+                        content += getProduct(data[i]);
+                    }
+                    document.getElementById('products').innerHTML = content;
+                }
+            });
+        }
+
+        function getProduct(product) {
+            return `<tr>` +
+                `<td >${product.name}</td>` +
+                `<td>${product.price}</td>` +
+                `<td>${product.description}</td>` +
+                `<td>${product.date}</td>` +
+                `<td>${product.quantity}</td>` +
+                `<td>${product.category.name}</td>` +
+                `<td><a class="editProduct" href="${product.id}">Edit</a></td>` +
+                `<td><a class="deleteProduct" href="${product.id}" onclick="deleteProduct($(this))">Delete</a></td>` +
+                `</tr>`;
+        }
+
+        function deleteProduct(a) {
+            //chặn sự kiện mặc định của thẻ
+            event.preventDefault();
+            let idProduct = a.attr("href");
+            // goi ajax
+            $.ajax({
+                type: "DELETE",
+                //tên API
+                url: "/api/products/" + idProduct,
+                //xử lý khi thành công
+                success: function (data) {
+                    a.parent().parent().remove();
+                },
+            });
+        }
+
+    </script>
+</head>
+<body>
+<form id="addProduct">
+    <label for="productName">Name</label>
+    <input type="text" id="productName">
+
+    <label for="price">Price</label>
+    <input type="text" id="price">
+
+    <label for="description">Description</label>
+    <input type="text" id="description">
+
+    <label for="date">Date</label>
+    <input type="text" id="date">
+
+    <label for="quantity">Quantity</label>
+    <input type="text" id="quantity">
+
+    <div>
+        <label>Category</label>
+        <select id="category">
+            <option th:each="c : ${listCategory}" th:value="${c.id}" th:text="${c.name}"></option>
+        </select>
+    </div>
+    <input type="button" value="Add New Product" onclick="addProduct()">
+</form>
+<h1>Danh sách sản phẩm</h1>
+<table id="products">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Description</th>
+        <th>Date</th>
+        <th>Quantity</th>
+        <th>Category</th>
+        <th>Edit</th>
+        <th>Delete</th>
+    </tr>
+    <tr th:each="product : ${list}">
+        <td th:text="${product.name}"></td>
+        <td th:text="${product.price}"></td>
+        <td th:text="${product.description}"></td>
+        <td th:text="${product.date}"></td>
+        <td th:text="${product.quantity}"></td>
+        <td th:text="${product.category.name}"></td>
+        <td><a class="editProduct" th:href="${product.getId()}">Edit</a></td>
+        <td><a class="deleteProduct" onclick="deleteProduct($(this))"
+               th:href="${product.getId()}">Delete</a></td>
+    </tr>
+</table>
+</body>
+</html>
