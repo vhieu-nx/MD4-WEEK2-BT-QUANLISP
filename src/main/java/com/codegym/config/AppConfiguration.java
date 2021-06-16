@@ -3,6 +3,9 @@ package com.codegym.config;
 import com.codegym.aspect.MyLogger;
 import com.codegym.formatter.CategoryFormatter;
 import com.codegym.service.category.ICategoryService;
+import com.codegym.service.product.IProductService;
+import com.codegym.service.product.ProductService;
+import org.hibernate.query.criteria.internal.predicate.NegatedPredicateWrapper;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
@@ -137,4 +140,10 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     //AOP
     @Bean
     public MyLogger myLogger(){return new MyLogger();}
+
+//    @Bean
+//    public IProductService productService(){
+//        return new ProductService();
+//    }
+
 }

@@ -9,25 +9,25 @@ import java.util.List;
 
 @Repository
 public interface IProductRepository extends PagingAndSortingRepository<Product, Long> {
-    //tim kiem san pham theo category
+    //searchh produect  for category
     @Query(value = "select * from product where product.category_id = ?", nativeQuery = true)
     List<Product> findProductByCategoryName(Long id);
 
-    //tim kiem san pham theo ten
+    //search product for name
     @Query(value = "select  * from product where product.name like ?", nativeQuery = true)
     List<Product> findProductByName(String name);
 
-    //top 5 san pham theo gia
+    //top 5 product for price
     @Query(value = "select * from product order by price desc limit ?", nativeQuery = true)
     List<Product> getProductByPriceExp(int limit);
 
     //repo ho tro
     List<Product> findTop5ByOrderByPriceDesc();
 
-    //top 5 san pham theo thoi gian
+    //top 5 product for time
     List<Product> findTop5ByOrderByDateDesc();
 
-    //tong tien
+    //Sum
     @Query(value = "select sum(price) from Product ", nativeQuery = false)
     int getSumPrice();
 }
