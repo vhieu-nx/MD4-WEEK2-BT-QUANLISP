@@ -20,9 +20,9 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
     protected String[] getServletMappings() {
         return new String[]{"/"};
     }
-    @Bean
-    public IProductService productService(){
-        return new ProductService();
-    }
+//    @Bean
+//    public IProductService productService(){
+//        return new ProductService();
+//    }
 }
 
