@@ -93,7 +93,6 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
 //        sessionFactory.setDataSource(dataSource());
 //        sessionFactory.setPackagesToScan("model");
 //        sessionFactory.setHibernateProperties(additionalProperties());
-//
 //        return sessionFactory;
 //    }
 
@@ -101,7 +100,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
         LocalContainerEntityManagerFactoryBean c = new LocalContainerEntityManagerFactoryBean();
         c.setDataSource(dataSource());
-        c.setPackagesToScan(new String[]{"com.codegym.model"});
+        c.setPackagesToScan("model");
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         c.setJpaVendorAdapter(vendorAdapter);
         c.setJpaProperties(additionalProperties());
@@ -111,7 +110,7 @@ public class AppConfiguration extends WebMvcConfigurerAdapter implements Applica
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         dataSource.setUrl("jdbc:mysql://localhost:3306/product");
         dataSource.setUsername( "root" );
         dataSource.setPassword( "123456" );

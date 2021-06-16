@@ -1,7 +1,7 @@
-com/codegym/repository/IProductRepository.java
- com.codegym.repository.IProductRepository
-com/codegym/config/AppConfiguration.java
- com.codegym.config.AppConfiguration
+com/codegym/service/category/CategoryService.java
+ com.codegym.service.category.CategoryService
+com/codegym/service/IGeneralService.java
+ com.codegym.service.IGeneralService
 com/codegym/aspect/MyLogger.java
  com.codegym.aspect.MyLogger
 com/codegym/service/category/ICategoryService.java
@@ -16,17 +16,17 @@ com/codegym/controller/RestProductController.java
  com.codegym.controller.RestProductController
 com/codegym/controller/ProductController.java
  com.codegym.controller.ProductController
-com/codegym/config/AppInit.java
- com.codegym.config.AppInit
+com/codegym/formatter/CategoryFormatter.java
+ com.codegym.formatter.CategoryFormatter
 com/codegym/repository/ICategoryRepository.java
  com.codegym.repository.ICategoryRepository
 com/codegym/exception/NotFoundException.java
  com.codegym.exception.NotFoundException
-com/codegym/formatter/CategoryFormatter.java
- com.codegym.formatter.CategoryFormatter
-com/codegym/service/category/CategoryService.java
- com.codegym.service.category.CategoryService
-com/codegym/service/IGeneralService.java
- com.codegym.service.IGeneralService
+com/codegym/repository/IProductRepository.java
+ com.codegym.repository.IProductRepository
+com/codegym/config/AppInit.java
+ com.codegym.config.AppInit
+com/codegym/config/AppConfiguration.java
+ com.codegym.config.AppConfiguration
 com/codegym/service/product/ProductService.java
  com.codegym.service.product.ProductService
